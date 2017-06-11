@@ -25,18 +25,11 @@ public class DAOBaseJDBC implements DAOBase {
     private int numTransacoes;
 
     public DAOBaseJDBC() {
-        Properties props;
-        FileInputStream stream;
-
         try {
-            props = new Properties();
-            stream = new FileInputStream(CAMINHO_PROPERTIES);
-            props.load(stream);
-
-            String driver = props.getProperty("nome_driver");
-            String url    = props.getProperty("bd_url");
-            String login  = props.getProperty("bd_login");
-            String senha  = props.getProperty("bd_senha");
+            String driver = "com.mysql.jdbc.Driver";
+            String url    = "jdbc:mysql://localhost:3306/pousada";
+            String login  = "root";
+            String senha  = "123456";
 
             Class.forName(driver);
             conn = DriverManager.getConnection(url, login, senha);
@@ -51,14 +44,6 @@ public class DAOBaseJDBC implements DAOBase {
             tipoPagamentoDao = new TipoPagamentoDAOJDBC(this);
             
             numTransacoes = 0;
-        }
-        catch (FileNotFoundException ex) {
-            System.out.println("Arquivo properties não encontrado!");
-            System.exit(1);
-        }
-        catch (IOException ex) {
-            System.out.println("Falha ao carregar arquivo properties!");
-            System.exit(1);
         }
         catch (ClassNotFoundException ex) {
             System.out.println("Falha ao carregar driver do banco de dados!");
