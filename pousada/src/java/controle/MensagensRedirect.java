@@ -8,4 +8,6 @@ public class MensagensRedirect {
     public static String redirecionarErro(){
         return "erro.xhtml";
     }
+    
+    
 }

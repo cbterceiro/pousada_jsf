@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./hospedagem.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="pagina-filho">
+        <h:form>
+            <h:panelGrid columns="4" width="700px">
+                <h:outputLabel value="Cliente:" />
+                <h:selectOneMenu id="selectCliente" >
+                    <f:selectItems value="#{hospedagemBean.listaClientes}"/>
+                </h:selectOneMenu>
+                
+                <h:outputLabel value="Chalé:" />                
+                <h:selectOneMenu id="selectChale" >
+                    <f:selectItems value="#{hospedagemBean.listaChales}"/>
+                </h:selectOneMenu>
+                
+                <h:outputLabel value="Qtd. Acomp:" />
+                <h:inputText id="fieldQtdAcomp" value="#{hospedagemBean.qntdAcompSelecionada}" validator="numeroPositivoValidator"/>
+                <h:panelGroup/>
+                <h:panelGroup/>
+                
+                <h:panelGroup/>
+                <h:message for="fieldQtdAcomp" style="color: red" />
+                <h:panelGroup/>
+                <h:panelGroup/>
+                                
+                <h:outputLabel value="Data início: "/>
+                <h:inputText id="fieldDtIni" value="#{hospedagemBean.hospedagemNova.dataInicioString}" validator="dataValidator"/>
+                
+                <h:outputLabel value="Data final: "/>
+                <h:inputText id="fieldDtFim" value="#{hospedagemBean.hospedagemNova.dataFimString}" validator="dataValidator"/>
+                
+                <h:panelGroup/>
+                <h:message for="fieldDtIni" style="color: red"/>
+                <h:panelGroup/>
+                <h:message for="fieldDtFim" style="color: red"/>
+                
+                <h4>Serviços</h4>
+                <h:panelGroup/>
+                <h:panelGroup/>
+                <h:panelGroup/>
+                
+                <h:selectOneMenu id="selectServico" value="#{hospedagemBean.servicoSelecionado}" >
+                    <f:selectItems value="#{hospedagemBean.listaServicos}"/>
+                </h:selectOneMenu>
+                
+                <h:outputLabel value="Quantidade: "/>
+                <h:inputText id="fieldQtdServico" value="#{hospedagemBean.quantidadeServicos}" validator="numeroPositivoValidator"/>
+                
+                <h:commandButton id="btAddServico" action="#{hospedagemBean.adicionarServico}" value="Adicionar" >
+                    <f:ajax execute="@form" render="@form" />
+                </h:commandButton>
+                
+                <h:panelGroup/>
+                <h:panelGroup/>
+                <h:message for="fieldQtdServico" style="color: red" />
+                <h:panelGroup/>
+            </h:panelGrid>
+            
+            <h:dataTable value="#{hospedagemBean.listaServicosSelecionados}" var="servicos" width="600px">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="Descrição" />                    
+                    </f:facet>
+                    <h:outputText value="#{servicos.descricao}"/>                
+                </h:column>
+            
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="Valor unitário" />                    
+                    </f:facet>
+                    <h:outputText value="#{servicos.valorUnitario}"/>                
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="Quantidade" />                    
+                    </f:facet>
+                    <h:outputText value="#{servicos.quantidade}"/>                
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputLabel value="Valor total" />                    
+                    </f:facet>
+                    <h:outputText value="#{servicos.valorTotal}"/>                
+                </h:column>
+                
+                <h:column>
+                    <h:commandButton id="removerServ" value="Remover" action="#{hospedagemBean.removerServico}" >
+                        <f:ajax execute="@form" render="@form" />
+                        <f:param name="servico" value="#{servicos.id}" />
+                    </h:commandButton>
+                </h:column>                
+            </h:dataTable>
+            
+            <h:commandButton id="efetuarHosped" value="Efetuar" action="#{hospedagemBean.efetuarHospedagem}" />
+        </h:form>
+    </ui:define>
+
+</ui:composition>

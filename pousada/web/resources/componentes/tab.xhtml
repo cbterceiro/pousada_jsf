@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite">
+    <head>
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#tabs a').click(function() {
+                    $('#panels').children().hide();
+                    $($(this).attr('href')).show();
+                });
+            });
+        </script>
+        <style>
+            #tabs li { list-style-type: none; display: inline; border: 1px solid black; }
+            #panels { width: 600px; height: 400px; border: 1px solid black; }
+            .hide { display: none; }
+        </style>
+    </head>
+
+    <!-- INTERFACE -->
+    <cc:interface>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        
+    </cc:implementation>
+</html>

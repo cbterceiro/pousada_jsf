@@ -51,11 +51,17 @@ public class LoginBean {
             if (adm == null) {
                 MensagensErro.criarMensagemErroLogin();
             } else {
+                gerenciadorDao.setAdmLogado(adm);
                 return MensagensRedirect.redirecionarLogin();
             }
         } catch (DAOException ex) {
             return MensagensRedirect.redirecionarErro();
         }
         return null;
+    }
+    
+    public String logout() {
+        gerenciadorDao.setAdmLogado(null);
+        return "index.xhtml";
     }
 }

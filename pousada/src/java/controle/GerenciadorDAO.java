@@ -1,31 +1,56 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controle;
 
 import dao.AdministradorDAO;
+import dao.ChaleDAO;
+import dao.ClienteDAO;
+import dao.HospedagemDAO;
+import dao.ServicoDAO;
 import dao.jdbc.DAOBaseJDBC;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import modelo.Administrador;
 
 /**
  *
  * @author caiod
  */
 @ManagedBean(name = "gerenciadorDao")
-@ApplicationScoped
+@SessionScoped
 public class GerenciadorDAO {
     
     private DAOBaseJDBC daoBase = new DAOBaseJDBC();
+    
+    private Administrador admLogado;
 
     public GerenciadorDAO() {
     }
         
+    public Administrador getAdmLogado() {
+        return admLogado;
+    }
+
+    public void setAdmLogado(Administrador admLogado) {
+        this.admLogado = admLogado;
+    }
+    
+    public HospedagemDAO getHospedagemDao(){
+        return daoBase.getHospedagemDAO();
+    }
+    
     public AdministradorDAO getAdministradorDAO() {
         return daoBase.getAdministradorDAO();
     }
     
+    public ClienteDAO getClienteDao(){
+        return daoBase.getClienteDAO();
+    }
+    
+    public ChaleDAO getChaleDao(){
+        return daoBase.getChaleDAO();
+    }
+    
+    public ServicoDAO gerServicoDao(){
+        return daoBase.getServicoDAO();
+    }
     
 }
