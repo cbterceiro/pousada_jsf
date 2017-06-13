@@ -7,4 +7,8 @@ public class MensagensErro {
     public static void criarMensagemErroLogin(){
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Login ou Senha inválidos!"));
     }
+    
+    public static void criarMensagemBuscaEquipamento(){
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ops!", "Produto não encontrado!"));
+    }
 }

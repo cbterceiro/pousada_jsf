@@ -3,6 +3,7 @@ package controle;
 import dao.AdministradorDAO;
 import dao.ChaleDAO;
 import dao.ClienteDAO;
+import dao.EquipamentoDAO;
 import dao.HospedagemDAO;
 import dao.ServicoDAO;
 import dao.jdbc.DAOBaseJDBC;
@@ -53,4 +54,7 @@ public class GerenciadorDAO {
         return daoBase.getServicoDAO();
     }
     
+    public EquipamentoDAO getEquipamentoDao(){
+        return daoBase.getEquipamentoDAO();
+    }
 }
