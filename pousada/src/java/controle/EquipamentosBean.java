@@ -1,4 +1,3 @@
-
 package controle;
 
 import dao.DAOException;
@@ -14,6 +13,9 @@ import modelo.Equipamento;
 public class EquipamentosBean {
     private List<Equipamento> listaEquipamentos;
     private Equipamento equipamentoNovo = new Equipamento();
+    private Equipamento equipamentoALterado = new Equipamento();
+    private String descricao;
+    private String descricaoAlterada;
     
     @ManagedProperty(value = "#{gerenciadorDao}")
     private GerenciadorDAO gerenciadorDao;
@@ -54,6 +56,30 @@ public class EquipamentosBean {
     public void setEquipamentoNovo(Equipamento equipamentoNovo) {
         this.equipamentoNovo = equipamentoNovo;
     }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }   
+
+    public Equipamento getEquipamentoALterado() {
+        return equipamentoALterado;
+    }
+
+    public void setEquipamentoALterado(Equipamento EquipamentoALterado) {
+        this.equipamentoALterado = EquipamentoALterado;
+    }   
+
+    public String getDescricaoAlterada() {
+        return descricaoAlterada;
+    }
+
+    public void setDescricaoAlterada(String descricaoAlterada) {
+        this.descricaoAlterada = descricaoAlterada;
+    }
     
     public void incluirEquipamento(){
         try {            
@@ -67,8 +93,8 @@ public class EquipamentosBean {
     public void buscarEquipamento(){
         Equipamento equip = null;
         
-        try {
-            equip = gerenciadorDao.getEquipamentoDao().consultarPorDescricao(this.equipamentoNovo.getDescricao());
+        try {            
+            equip = gerenciadorDao.getEquipamentoDao().consultarPorDescricao(this.descricao);
         } catch(DAOException e){
             MensagensRedirect.redirecionarErro();
         }
@@ -77,8 +103,24 @@ public class EquipamentosBean {
             MensagensErro.criarMensagemBuscaEquipamento();
         }
         else{
-            
+            this.equipamentoALterado = equip;
+            this.descricao = null;
+            this.descricaoAlterada = null;
         }
     }
     
+    public void alterarEquipamento(){
+        this.equipamentoALterado.setDescricao(this.descricaoAlterada);
+                
+        try {
+            System.out.println("================>>>>>>>>>>>>>>> " + this.equipamentoALterado.getDescricao());
+            System.out.println("================>>>>>>>>>>>>>>> " + this.equipamentoALterado.getId());
+            gerenciadorDao.getEquipamentoDao().alterar(this.equipamentoALterado);
+            listaEquipamentos = gerenciadorDao.getEquipamentoDao().listarTodos();
+            this.descricaoAlterada = null;
+            this.equipamentoALterado = null;
+        } catch(DAOException e){
+            
+        }
+    }
 }

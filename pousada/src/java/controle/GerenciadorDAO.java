@@ -3,6 +3,7 @@ package controle;
 import dao.AdministradorDAO;
 import dao.ChaleDAO;
 import dao.ClienteDAO;
+import dao.DAOException;
 import dao.EquipamentoDAO;
 import dao.HospedagemDAO;
 import dao.ServicoDAO;
@@ -10,6 +11,7 @@ import dao.jdbc.DAOBaseJDBC;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import modelo.Administrador;
+import modelo.Equipamento;
 
 /**
  *
@@ -56,5 +58,13 @@ public class GerenciadorDAO {
     
     public EquipamentoDAO getEquipamentoDao(){
         return daoBase.getEquipamentoDAO();
+    }
+    
+    public void setEquipamentoDAO(Equipamento equipamento){
+        try {
+            daoBase.getEquipamentoDAO().alterar(equipamento);
+        } catch(DAOException e){
+            MensagensRedirect.redirecionarErro();
+        }
     }
 }

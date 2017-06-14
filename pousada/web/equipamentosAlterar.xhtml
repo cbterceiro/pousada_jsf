@@ -10,20 +10,20 @@
                 <h:outputText value="Digite a descrição do equipamento a ser alterado:" />
                 <h:panelGroup/>
                 
-                <h:inputText id="fieldAlterEquip" value="" />
-                <h:commandButton id="btBuscarEquip" value="Buscar" action="" />
+                <h:inputText id="fieldBuscaEquip" value="#{equipamentosBean.descricao}" />
+                <h:commandButton id="btBuscarEquip" value="Buscar" action="#{equipamentosBean.buscarEquipamento}" />
                 
                 <h:panelGroup/>
                 <h:panelGroup/>
                 
                 <h:outputLabel value="Descrição atual: " />
-                <h:outputLabel value="" />
+                <h:outputLabel id="labelDescEquip" value="#{equipamentosBean.equipamentoALterado.descricao}" />
                 
                 <h:outputLabel value="Nova descrição: " />
-                <h:inputText id="fieldAlterDescEquip" value="" />
+                <h:inputText id="fieldAlterDescEquip" value="#{equipamentosBean.descricaoAlterada}" />
                 
                 <h:panelGroup/>
-                <h:commandButton id="btAlterarDescEquip" value="Alterar" action="" />
+                <h:commandButton id="btAlterarDescEquip" value="Alterar" action="#{equipamentosBean.alterarEquipamento}" />
             </h:panelGrid>
         </h:form>
     </ui:define>
