@@ -113,14 +113,22 @@ public class EquipamentosBean {
         this.equipamentoALterado.setDescricao(this.descricaoAlterada);
                 
         try {
-            System.out.println("================>>>>>>>>>>>>>>> " + this.equipamentoALterado.getDescricao());
-            System.out.println("================>>>>>>>>>>>>>>> " + this.equipamentoALterado.getId());
             gerenciadorDao.getEquipamentoDao().alterar(this.equipamentoALterado);
             listaEquipamentos = gerenciadorDao.getEquipamentoDao().listarTodos();
             this.descricaoAlterada = null;
             this.equipamentoALterado = null;
         } catch(DAOException e){
             
+        }
+    }
+    
+    public void removerEquipamento(){
+        try {
+            gerenciadorDao.getEquipamentoDao().remover(this.equipamentoALterado);
+            listaEquipamentos = gerenciadorDao.getEquipamentoDao().listarTodos();
+            this.equipamentoALterado = null;
+        } catch(DAOException e){
+            MensagensRedirect.redirecionarErro();
         }
     }
 }
