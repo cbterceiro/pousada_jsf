@@ -7,23 +7,27 @@
 
     <ui:define name="pagina-filho-equipamentos">
         <h:form>
-            <h:panelGrid columns="2" width="500px">
+            <h:panelGrid columns="4" width="700px">
                 <h:outputText value="Digite a descrição do equipamento a ser alterado:" />
+                                
+                <h:inputText id="fieldBuscaEquip" value="#{equipamentosBean.descricao}" />   
                 <h:panelGroup/>
-                
-                <h:inputText id="fieldBuscaEquip" value="#{equipamentosBean.descricao}" />
                 <h:commandButton id="btBuscarEquip" value="Buscar" action="#{equipamentosBean.buscarEquipamento}" />
                 
+                <h:panelGroup/>
+                <h:panelGroup/>
                 <h:panelGroup/>
                 <h:panelGroup/>
                 
                 <h:outputLabel value="Descrição atual: " />
                 <h:outputLabel id="labelDescEquip" value="#{equipamentosBean.equipamentoALterado.descricao}" />
                 
-                <h:outputLabel value="Nova descrição: " />
-                <h:inputText id="fieldAlterDescEquip" value="#{equipamentosBean.descricaoAlterada}" />
-                
                 <h:panelGroup/>
+                <h:panelGroup/>
+                
+                <h:outputLabel value="Nova descrição: " />
+                <h:inputText id="fieldAlterDescEquip" value="#{equipamentosBean.descricaoAlterada}" /> 
+                <h:panelGroup/>                
                 <h:commandButton id="btAlterarDescEquip" value="Alterar" action="#{equipamentosBean.alterarEquipamento}" />
             </h:panelGrid>
         </h:form>

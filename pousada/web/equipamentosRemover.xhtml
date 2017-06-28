@@ -7,21 +7,17 @@
 
     <ui:define name="pagina-filho-equipamentos">
         <h:form>
-            <h:panelGrid columns="2" width="500px">
-                <h:outputText value="Digite a descrição do equipamento a ser removido: " />
-                <h:panelGroup/>
+            <h:panelGrid columns="4" width="750px">
+                <h:outputText value="Digite a descrição do equipamento a ser removido: " />                
                 
                 <h:inputText id="fieldBuscarEquipRm" value="#{equipamentosBean.descricao}" />
-                <h:commandButton id="btBuscarEquipRm" value="Buscar" action="#{equipamentosBean.buscarEquipamento}" />
-                
                 <h:panelGroup/>
-                <h:panelGroup/>
+                <h:commandButton id="btBuscarEquipRm" value="Buscar" style="width:110px" action="#{equipamentosBean.buscarEquipamento}" />
                 
                 <h:outputLabel value="Descrição do equipamento: " />
                 <h:outputLabel id="labelDescEquipRm" value="#{equipamentosBean.equipamentoALterado.descricao}" />
-                
                 <h:panelGroup/>
-                <h:commandButton id="btRemoverEquip" value="Remover" action="#{equipamentosBean.removerEquipamento}" />                
+                <h:commandButton id="btRemoverEquip" value="Remover" style="width:110px" action="#{equipamentosBean.removerEquipamento}" />                
             </h:panelGrid>
         </h:form>
     </ui:define>
