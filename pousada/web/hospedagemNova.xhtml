@@ -1,25 +1,26 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns="http://www.w3.org/1999/xhtml"
                 template="./hospedagem.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="pagina-filho-hospedagem">
         <h:form>
-            <h:panelGrid columns="4" width="700px">
+            <h:panelGrid columns="4" width="800px">
                 <h:outputLabel value="Cliente:" />
-                <h:selectOneMenu id="selectCliente" >
+                <h:selectOneMenu id="selectCliente" value="#{hospedagemBean.clienteSelecionado}">
                     <f:selectItems value="#{hospedagemBean.listaClientes}"/>
                 </h:selectOneMenu>
                 
                 <h:outputLabel value="Chalé:" />                
-                <h:selectOneMenu id="selectChale" >
+                <h:selectOneMenu id="selectChale" value="#{hospedagemBean.chaleSelecionado}">
                     <f:selectItems value="#{hospedagemBean.listaChales}"/>
                 </h:selectOneMenu>
                 
                 <h:outputLabel value="Qtd. Acomp:" />
-                <h:inputText id="fieldQtdAcomp" value="#{hospedagemBean.qntdAcompSelecionada}" validator="numeroPositivoValidator"/>
+                <h:inputText id="fieldQtdAcomp" value="#{hospedagemBean.qntdAcompSelecionada}" required="true" requiredMessage="Campo obrigatório!" validator="numeroPositivoValidator"/>
                 <h:panelGroup/>
                 <h:panelGroup/>
                 
@@ -29,10 +30,10 @@
                 <h:panelGroup/>
                                 
                 <h:outputLabel value="Data início: "/>
-                <h:inputText id="fieldDtIni" value="#{hospedagemBean.hospedagemNova.dataInicioString}" validator="dataValidator"/>
+                <h:inputText id="fieldDtIni" value="#{hospedagemBean.dataInicioString}" validator="dataValidator"/>
                 
                 <h:outputLabel value="Data final: "/>
-                <h:inputText id="fieldDtFim" value="#{hospedagemBean.hospedagemNova.dataFimString}" validator="dataValidator"/>
+                <h:inputText id="fieldDtFim" value="#{hospedagemBean.dataFimString}" validator="dataValidator"/>
                 
                 <h:panelGroup/>
                 <h:message for="fieldDtIni" style="color: red"/>
@@ -51,7 +52,7 @@
                 <h:outputLabel value="Quantidade: "/>
                 <h:inputText id="fieldQtdServico" value="#{hospedagemBean.quantidadeServicos}" validator="numeroPositivoValidator"/>
                 
-                <h:commandButton id="btAddServico" action="#{hospedagemBean.adicionarServico}" value="Adicionar" >
+                <h:commandButton id="btAddServico" action="#{hospedagemBean.adicionarServico}" value="Adicionar">
                     <f:ajax execute="@form" render="@form" />
                 </h:commandButton>
                 

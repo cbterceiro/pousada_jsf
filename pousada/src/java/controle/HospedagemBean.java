@@ -1,9 +1,14 @@
 package controle;
 
 import dao.DAOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -30,10 +35,14 @@ public class HospedagemBean {
     private String servicoSelecionado;
     private String clienteSelecionado;
     private String chaleSelecionado;
-    private String qntdAcompSelecionada;
+    private String qntdAcompSelecionada = "0";
     private String quantidadeServicos;
-    private Hospedagem hospedagemNova = new Hospedagem();
-        
+    private String dataInicioString;
+    private String dataFimString;
+    
+    @ManagedProperty(value = "#{hospedagemEfetuadaBean}")
+    private HospedagemEfetuadaBean hospedagemEfetuadaBean;
+    
     @ManagedProperty(value = "#{gerenciadorDao}")
     private GerenciadorDAO gerenciadorDao;  
     
@@ -41,17 +50,109 @@ public class HospedagemBean {
     
     @PostConstruct
     private void buscarListas(){
+        this.setDatasIniciais();
         try {
             listaHospedagens = gerenciadorDao.getHospedagemDao().listarTodos();  
             listaClientes = gerenciadorDao.getClienteDao().listarTodos();
             listaChales = gerenciadorDao.getChaleDao().listarTodos();
             listaServicos = gerenciadorDao.gerServicoDao().listarTodos();
-            System.out.println(listaClientes);
+            
         } catch (DAOException e) {
             MensagensRedirect.redirecionarErro();
         }
     }
+    
+    private void setDatasIniciais() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar hoje = Calendar.getInstance();
+        Calendar amanha = Calendar.getInstance();
+        amanha.add(Calendar.DAY_OF_MONTH, 1);
+        this.dataInicioString = sdf.format(hoje.getTime());
+        this.dataFimString = sdf.format(amanha.getTime());
+    }
 
+    public void adicionarServico(){
+        Servico serv = this.servicoPorNome(this.servicoSelecionado);
+        this.listaServicosSelecionados.add(new ReciboServicoItem(Integer.parseInt(this.quantidadeServicos), serv));
+    }
+    
+    public void removerServico(){
+        Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+
+        Integer idServico = Integer.parseInt(params.get("servico"));
+        
+        for(ReciboServicoItem s : this.listaServicosSelecionados){
+            if(s.getId() == idServico){
+                this.listaServicosSelecionados.remove(s);
+                break;
+            }
+        }
+    }
+    
+    public String efetuarHospedagem() {
+        Hospedagem h = new Hospedagem();
+        h.setCliente(this.clientePorNome(this.clienteSelecionado));
+        h.setChale(this.chalePorNome(this.chaleSelecionado));
+        h.setQntdAcomp(Integer.parseInt(this.qntdAcompSelecionada));
+        h.setDataInicioString(this.dataInicioString);
+        h.setDataFimString(this.dataFimString);
+                
+        try {
+            h.checkDatas();
+            h.setStatus("Hospedado");
+        
+            for (ReciboServicoItem s: this.listaServicosSelecionados) {
+                h.addRecibo(this.servicoPorNome(s.getDescricao()), s.getQuantidade());
+            }
+
+            h.calcValorTotal();
+            
+            this.gerenciadorDao.getHospedagemDao().inserir(h);
+            this.hospedagemEfetuadaBean.setHospedagem(h);
+        }
+        catch (IllegalArgumentException ex) {
+            MensagensErro.criarMensagemDatasInvalidas();
+        } catch (DAOException ex) {
+            return MensagensRedirect.redirecionarErro();
+        }
+        
+        return MensagensRedirect.redirecionarMensagemSucesso();
+    }
+    
+    private Cliente clientePorNome(String nomeCliente) {
+        if (nomeCliente == null)
+            return null;
+        
+        for (Cliente c : this.listaClientes) {
+            if (nomeCliente.equals(c.getNome()))
+                return c;
+        }
+        return null;
+    }
+    
+    private Servico servicoPorNome(String nomeServico) {
+        if (nomeServico == null)
+            return null;
+        
+        for (Servico s : this.listaServicos) {
+            if (nomeServico.equals(s.getNome()))
+                return s;
+        }
+        return null;
+    }
+    
+    private Chale chalePorNome(String nomeChale) {
+        if (nomeChale == null)
+            return null;
+        
+        for (Chale c : this.listaChales) {
+            if (nomeChale.equals(c.toString()))
+                return c;
+        }
+        return null;
+    }    
+    
+    
     public List<Hospedagem> getListaHospedagens() {
         return listaHospedagens;
     }
@@ -82,14 +183,6 @@ public class HospedagemBean {
 
     public void setListaChales(List<Chale> listaChales) {
         this.listaChales = listaChales;
-    }
-
-    public Hospedagem getHospedagemNova() {
-        return hospedagemNova;
-    }
-
-    public void setHospedagemNova(Hospedagem hospedagemNova) {
-        this.hospedagemNova = hospedagemNova;
     }
 
     public List<Servico> getListaServicos() {
@@ -147,37 +240,28 @@ public class HospedagemBean {
     public void setQntdAcompSelecionada(String qntdAcompSelecionada) {
         this.qntdAcompSelecionada = qntdAcompSelecionada;
     }
-    
-    
-    
-    public void adicionarServico(){
-        Servico serv = null;
-        
-        for(Servico s : this.listaServicos){
-            if(s.getNome().equals(this.servicoSelecionado)){
-                serv = s;
-                break;
-            }
-        }
-        
-        this.listaServicosSelecionados.add(new ReciboServicoItem(Integer.parseInt(this.quantidadeServicos), serv));
-    }
-    
-    public void removerServico(){
-        Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        
-        Integer idServico = Integer.parseInt(params.get("servico"));
-        
-        for(ReciboServicoItem s : this.listaServicosSelecionados){
-            if(s.getId() == idServico){
-                this.listaServicosSelecionados.remove(s);
-                break;
-            }
-        }
-    }
-    
-    public void efetuarHospedagem(){
-        
+
+    public String getDataInicioString() {
+        return dataInicioString;
     }
 
+    public void setDataInicioString(String dataInicioString) {
+        this.dataInicioString = dataInicioString;
+    }
+
+    public String getDataFimString() {
+        return dataFimString;
+    }
+
+    public void setDataFimString(String dataFimString) {
+        this.dataFimString = dataFimString;
+    }
+
+    public HospedagemEfetuadaBean getHospedagemEfetuadaBean() {
+        return hospedagemEfetuadaBean;
+    }
+
+    public void setHospedagemEfetuadaBean(HospedagemEfetuadaBean hospedagemEfetuadaBean) {
+        this.hospedagemEfetuadaBean = hospedagemEfetuadaBean;
+    }
 }

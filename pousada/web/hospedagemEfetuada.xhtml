@@ -2,10 +2,12 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns="http://www.w3.org/1999/xhtml"
-                template="./modelos/main.xhtml">
+                template="./hospedagem.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
 
-    <ui:define name="content">
-        Clique no menu ao lado
+    <ui:define name="pagina-filho-hospedagem">
+        <h1>Hospedagem efetuada!</h1>
+        <h:outputText value="#{hospedagemEfetuadaBean.hospedagemInfo}" styleClass="pre-formatted" />
     </ui:define>
 
 </ui:composition>

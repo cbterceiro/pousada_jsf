@@ -11,4 +11,8 @@ public class MensagensErro {
     public static void criarMensagemBuscaEquipamento(){
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ops!", "Produto não encontrado!"));
     }
+    
+    public static void criarMensagemDatasInvalidas() {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "A data inicial deve ser anterior à data final!"));
+    }
 }

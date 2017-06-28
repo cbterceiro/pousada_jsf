@@ -16,14 +16,16 @@ public class NumeroPositivoValidator implements Validator {
 
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-        Integer i = null;
-        try {
-            i = Integer.parseInt(value.toString());
-            if (i < 0) {
-                throw new ValidatorException(new FacesMessage("Número deve ser positivo!"));
+        if (value.toString() != null && !value.toString().isEmpty()) {
+            Integer i = null;
+            try {
+                i = Integer.parseInt(value.toString());
+                if (i < 0) {
+                    throw new ValidatorException(new FacesMessage("Número deve ser positivo!"));
+                }
+            } catch (NumberFormatException ex) {
+                throw new ValidatorException(new FacesMessage("Formato de número inválido!"));
             }
-        } catch (NumberFormatException ex) {
-            throw new ValidatorException(new FacesMessage("Formato de número inválido!"));
         }
     }
 }

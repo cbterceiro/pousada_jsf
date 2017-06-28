@@ -30,54 +30,6 @@ public class EquipamentosBean {
             MensagensRedirect.redirecionarErro();
         }
     }
-
-    public List<Equipamento> getListaEquipamentos() {
-        return listaEquipamentos;
-    }
-
-    public void setListaEquipamentos(List<Equipamento> listaEquipamentos) {
-        this.listaEquipamentos = listaEquipamentos;
-    }
-
-    public GerenciadorDAO getGerenciadorDao() {
-        return gerenciadorDao;
-    }
-
-    public void setGerenciadorDao(GerenciadorDAO gerenciadorDao) {
-        this.gerenciadorDao = gerenciadorDao;
-    }
-
-    public Equipamento getEquipamentoNovo() {
-        return equipamentoNovo;
-    }
-
-    public void setEquipamentoNovo(Equipamento equipamentoNovo) {
-        this.equipamentoNovo = equipamentoNovo;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }   
-
-    public Equipamento getEquipamentoALterado() {
-        return equipamentoALterado;
-    }
-
-    public void setEquipamentoALterado(Equipamento EquipamentoALterado) {
-        this.equipamentoALterado = EquipamentoALterado;
-    }   
-
-    public String getDescricaoAlterada() {
-        return descricaoAlterada;
-    }
-
-    public void setDescricaoAlterada(String descricaoAlterada) {
-        this.descricaoAlterada = descricaoAlterada;
-    }
     
     public void incluirEquipamento(){
         try {            
@@ -128,5 +80,53 @@ public class EquipamentosBean {
         } catch(DAOException e){
             MensagensRedirect.redirecionarErro();
         }
+    }
+
+    public List<Equipamento> getListaEquipamentos() {
+        return listaEquipamentos;
+    }
+
+    public void setListaEquipamentos(List<Equipamento> listaEquipamentos) {
+        this.listaEquipamentos = listaEquipamentos;
+    }
+
+    public GerenciadorDAO getGerenciadorDao() {
+        return gerenciadorDao;
+    }
+
+    public void setGerenciadorDao(GerenciadorDAO gerenciadorDao) {
+        this.gerenciadorDao = gerenciadorDao;
+    }
+
+    public Equipamento getEquipamentoNovo() {
+        return equipamentoNovo;
+    }
+
+    public void setEquipamentoNovo(Equipamento equipamentoNovo) {
+        this.equipamentoNovo = equipamentoNovo;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }   
+
+    public Equipamento getEquipamentoALterado() {
+        return equipamentoALterado;
+    }
+
+    public void setEquipamentoALterado(Equipamento EquipamentoALterado) {
+        this.equipamentoALterado = EquipamentoALterado;
+    }   
+
+    public String getDescricaoAlterada() {
+        return descricaoAlterada;
+    }
+
+    public void setDescricaoAlterada(String descricaoAlterada) {
+        this.descricaoAlterada = descricaoAlterada;
     }
 }

@@ -231,12 +231,14 @@ public class Hospedagem implements java.io.Serializable {
             for (ReciboServico rs : recibos)
                 s += "    " + rs.getServico().getNome() + ", " + rs.getQntd() + " vezes [" + rs.getValorTotalString() + "]\n";        
         
+        /* Comentado por motivos de não sei
         s += "Pagamento:\n";
         if (pagamento.getParcelas().isEmpty())
             s += "    Ainda não efetuado.\n";
         else
             for (ParcelaPagamento p : pagamento.getParcelas())
                 s += "    " + p.getTipoPagamento().getDescricao() + ", " + p.getValorString() + "\n";
+        */
          
         return s;
     } 

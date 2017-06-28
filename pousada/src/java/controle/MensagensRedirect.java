@@ -9,5 +9,7 @@ public class MensagensRedirect {
         return "erro.xhtml";
     }
     
-    
+    public static String redirecionarMensagemSucesso() {
+        return "hospedagemEfetuada";
+    }
 }
