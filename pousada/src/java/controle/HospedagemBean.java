@@ -37,9 +37,7 @@ public class HospedagemBean {
     @ManagedProperty(value = "#{gerenciadorDao}")
     private GerenciadorDAO gerenciadorDao;  
     
-    public HospedagemBean() {
-        
-    }
+    public HospedagemBean() {}
     
     @PostConstruct
     private void buscarListas(){

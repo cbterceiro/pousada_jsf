@@ -20,9 +20,7 @@ public class EquipamentosBean {
     @ManagedProperty(value = "#{gerenciadorDao}")
     private GerenciadorDAO gerenciadorDao;
     
-    public EquipamentosBean(){
-        
-    }
+    public EquipamentosBean(){}
     
     @PostConstruct
     private void buscarListaEquipamentos(){
