@@ -3,21 +3,24 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns="http://www.w3.org/1999/xhtml"
                 template="./equipamentos.xhtml"
-                xmlns:h="http://xmlns.jcp.org/jsf/html">
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="pagina-filho-equipamentos">
         <h:form>
-            <h:panelGrid columns="4" width="700px">
-                <h:outputText value="Digite a descrição do equipamento a ser alterado:" />
-                                
+            <h:panelGrid columns="3" width="700px">
+                <h:outputText value="Digite a descrição do equipamento a ser alterado:" />                
                 <h:inputText id="fieldBuscaEquip" value="#{equipamentosBean.descricao}" />   
-                <h:panelGroup/>
-                <h:commandButton id="btBuscarEquip" value="Buscar" action="#{equipamentosBean.buscarEquipamento}" />
+                <h:commandButton id="btBuscarEquip" value="Buscar" action="#{equipamentosBean.buscarEquipamento}">
+                    <f:ajax execute="@form" render="@form" />
+                </h:commandButton>
                 
-                <h:panelGroup/>
-                <h:panelGroup/>
-                <h:panelGroup/>
-                <h:panelGroup/>
+                <h:panelGroup />
+                <h:messages showSummary="false" showDetail="true" style="color: red; font-size: 0.7em" />                
+                <h:panelGroup />
+            </h:panelGrid>
+            <hr />
+            <h:panelGrid columns="4" width="700px">
                 
                 <h:outputLabel value="Descrição atual: " />
                 <h:outputLabel id="labelDescEquip" value="#{equipamentosBean.equipamentoALterado.descricao}" />
@@ -28,7 +31,9 @@
                 <h:outputLabel value="Nova descrição: " />
                 <h:inputText id="fieldAlterDescEquip" value="#{equipamentosBean.descricaoAlterada}" /> 
                 <h:panelGroup/>                
-                <h:commandButton id="btAlterarDescEquip" value="Alterar" action="#{equipamentosBean.alterarEquipamento}" />
+                <h:commandButton id="btAlterarDescEquip" value="Alterar" action="#{equipamentosBean.alterarEquipamento}">
+                    <f:ajax execute="@form" render="@form" />
+                </h:commandButton>
             </h:panelGrid>
         </h:form>
     </ui:define>

@@ -3,14 +3,17 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns="http://www.w3.org/1999/xhtml"
                 template="./equipamentos.xhtml"
-                xmlns:h="http://xmlns.jcp.org/jsf/html">
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="pagina-filho-equipamentos">
         <h:form>
             <h:panelGrid columns="3" width="400px">
                 <h:outputLabel value="Descrição: " />
                 <h:inputText id="fieldDescEquip" value="#{equipamentosBean.equipamentoNovo.descricao}" />
-                <h:commandButton id="btIncluiEqip" value="Incluir" action="#{equipamentosBean.incluirEquipamento}"/>
+                <h:commandButton id="btIncluiEqip" value="Incluir" action="#{equipamentosBean.incluirEquipamento}">
+                    <f:ajax execute="@form" render="@form" />
+                </h:commandButton>
             </h:panelGrid>
         </h:form>
     </ui:define>

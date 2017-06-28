@@ -35,6 +35,7 @@ public class EquipamentosBean {
         try {            
             gerenciadorDao.getEquipamentoDao().inserir(equipamentoNovo);
             listaEquipamentos = gerenciadorDao.getEquipamentoDao().listarTodos();
+            this.equipamentoNovo = new Equipamento();
         } catch (DAOException e){
              MensagensRedirect.redirecionarErro();
         }    

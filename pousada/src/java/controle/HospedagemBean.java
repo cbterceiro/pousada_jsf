@@ -56,7 +56,6 @@ public class HospedagemBean {
             listaClientes = gerenciadorDao.getClienteDao().listarTodos();
             listaChales = gerenciadorDao.getChaleDao().listarTodos();
             listaServicos = gerenciadorDao.gerServicoDao().listarTodos();
-            
         } catch (DAOException e) {
             MensagensRedirect.redirecionarErro();
         }

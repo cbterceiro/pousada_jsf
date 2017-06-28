@@ -40,6 +40,10 @@
                 <h:panelGroup/>
                 <h:message for="fieldDtFim" style="color: red"/>
                 
+            </h:panelGrid>
+            <hr />
+            <h:panelGrid columns="4" width="800px">
+                
                 <h4>Serviços</h4>
                 <h:panelGroup/>
                 <h:panelGroup/>
@@ -61,7 +65,8 @@
                 <h:message for="fieldQtdServico" style="color: red" />
                 <h:panelGroup/>
             </h:panelGrid>
-            
+            <br />
+            <br />
             <h:dataTable value="#{hospedagemBean.listaServicosSelecionados}" var="servicos" width="600px">
                 <h:column>
                     <f:facet name="header">
@@ -98,6 +103,8 @@
                     </h:commandButton>
                 </h:column>                
             </h:dataTable>
+            
+            <hr />
             
             <h:commandButton id="efetuarHosped" value="Efetuar" action="#{hospedagemBean.efetuarHospedagem}" />
         </h:form>
